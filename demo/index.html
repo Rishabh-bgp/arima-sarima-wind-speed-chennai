@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#650f19;--ink:#111214;--navy:#14213d;--gold:#d4a64a;--gold2:#f1d38a;--paper:#f6ecd9;--red:#e04a3a;
+:root{--bg:#650f19;--ink:#111214;--navy:#14213d;--gold:#d4a64a;--gold2:#f1d38a;--paper:#f6ecd9;--red:#b3121b;
  --fg:var(--paper);--acc:var(--gold);--acc2:var(--red);--card:rgba(17,18,20,.86)}
 *{box-sizing:border-box}
 body{margin:0;color:var(--paper);font-family:'Noto Serif',Georgia,serif;line-height:1.5;
@@ -42,18 +42,18 @@ footer{max-width:1120px;margin:auto;padding:0 24px 34px;font-size:.85rem;color:#
 <svg class="taiji" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#f6ecd9"/><path d="M50 2a48 48 0 0 1 0 96a24 24 0 0 1 0-48a24 24 0 0 0 0-48z" fill="#111214"/><circle cx="50" cy="26" r="7" fill="#111214"/><circle cx="50" cy="74" r="7" fill="#f6ecd9"/></svg>
 <div class="motto" aria-hidden="true">上善若水</div>
 <header><div class="seal" role="img" aria-label="Red seal stamp with the initials R A">印<small>RA</small></div>
-<div><h1><span class="brush">坎</span>ARIMA daily wind speed forecaster</h1><p class="sub">Chennai-style daily series · ARIMA(3,0,2) · runs in your browser</p></div>
+<div><h1><span class="brush">坎</span>ARIMA daily wind speed forecaster</h1><p class="sub">風 · Chennai-style daily series · ARIMA(3,0,2) · runs in your browser</p></div>
 <div class="trigram" aria-label="Trigram Kǎn, Water"><div class="g">☵</div><div class="n">坎 · Water</div></div></header>
 <div class="bagua" aria-hidden="true">☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷</div>
 <main>
 
-<section class="card" style="grid-column:1/-1"><h2>Daily forecast from a chosen origin</h2><canvas id="c" width="940" height="340" role="img" aria-label="Line chart of daily wind speed history, ARIMA forecast, persistence forecast and actual values"></canvas>
-<p class="legend"><span style="color:#f6ecd9">■</span> history / actual &nbsp; <span style="color:#d4a64a">■</span> ARIMA(3,0,2) forecast &nbsp; <span style="color:#e04a3a">■</span> persistence (last observed day)</p></section>
+<section class="card" style="grid-column:1/-1"><h2>預測 · Daily forecast from a chosen origin</h2><canvas id="c" width="940" height="340" role="img" aria-label="Line chart of daily wind speed history, ARIMA forecast, persistence forecast and actual values"></canvas>
+<p class="legend"><span style="color:#f6ecd9">■</span> history / actual &nbsp; <span style="color:#d4a64a">■</span> ARIMA(3,0,2) forecast &nbsp; <span style="color:#b3121b">■</span> persistence (last observed day)</p></section>
 <section class="card"><h2>Controls</h2>
 <label for="o">Forecast origin date: <b id="ov"></b></label><input id="o" type="range">
 <label for="h">Horizon: <b id="hv"></b> days</label><input id="h" type="range" min="1" max="60" value="30">
 <label for="s">Shock to the last observed day: <b id="sv"></b> m/s</label><input id="s" type="range" min="-3" max="3" step="0.1" value="0">
-</section><section class="card"><h2>Errors over the horizon</h2>
+</section><section class="card"><h2>結果 · Errors over the horizon</h2>
 <div class="kpi"><div>ARIMA RMSE<b id="ra">–</b></div><div>Persistence RMSE<b id="rp">–</b></div></div>
 <div class="kpi" style="margin-top:8px"><div>ARIMA MAE<b id="ma">–</b></div><div>Persistence MAE<b id="mp">–</b></div></div></section>
 <section class="card" style="grid-column:1/-1"><div class="warn"><b>Synthetic data disclaimer.</b> The series here is <b>synthetic</b> (generated to look like Chennai daily wind, 2015–2017). It is <b>not</b> NIWE data and these numbers say nothing about the paper's published results. <span id="n"></span></div></section>
@@ -77,7 +77,7 @@ fetch("model.json").then(r=>r.json()).then(m=>{
   for(let v=0;v<=hi;v+=2){g.globalAlpha=.15;g.fillRect(40,Y(v),c.width-50,1);g.globalAlpha=1;g.fillText(v,10,Y(v)+4)}
   g.fillText(Dt[start],40,c.height-6);g.fillText(Dt[O+H-1],c.width-90,c.height-6);
   const L=(arr,i0,col,w)=>{g.strokeStyle=col;g.lineWidth=w;g.beginPath();arr.forEach((v,k)=>{k?g.lineTo(X(i0+k),Y(v)):g.moveTo(X(i0+k),Y(v))});g.stroke()};
-  L(V.slice(start,O+H),start,"#f6ecd9",1.2);L([hist[O-1]].concat(per),O-1,"#e04a3a",2);L([hist[O-1]].concat(f),O-1,"#d4a64a",2.4);
+  L(V.slice(start,O+H),start,"#f6ecd9",1.2);L([hist[O-1]].concat(per),O-1,"#b3121b",2);L([hist[O-1]].concat(f),O-1,"#d4a64a",2.4);
   g.globalAlpha=.2;g.fillStyle="#d4a64a";g.fillRect(X(O-1),15,X(O+H-1)-X(O-1),c.height-40);g.globalAlpha=1}
  [o,h,s].forEach(e=>e.addEventListener("input",up));up()});
 </script>

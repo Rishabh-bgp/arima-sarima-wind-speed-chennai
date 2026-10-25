@@ -1,18 +1,16 @@
 # ARIMA and SARIMA Wind Speed Forecasting for Chennai, India (Python, statsmodels)
 
-[![Live demo](https://img.shields.io/badge/Live%20demo-GitHub%20Pages-B22234)](https://rishabh-bgp.github.io/arima-sarima-wind-speed-chennai/) [![CI](https://img.shields.io/badge/CI-GitHub%20Actions-B22234)](https://github.com/Rishabh-bgp/arima-sarima-wind-speed-chennai/actions/workflows/ci.yml) [![Open in Colab](https://img.shields.io/badge/Open%20in-Colab-D4A64A)](https://colab.research.google.com/github/Rishabh-bgp/arima-sarima-wind-speed-chennai/blob/main/notebooks/walkthrough.ipynb) [![License: MIT](https://img.shields.io/badge/License-MIT-D4A64A.svg)](LICENSE) ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-B22234)
+<a href="https://rishabh-bgp.github.io/arima-sarima-wind-speed-chennai/"><img src="docs/img/banner.png" width="100%" alt="Banner: ARIMA and SARIMA Wind Speed Forecasting for Chennai, India, with a red seal stamp and a Bagua trigram"></a>
 
-Daily wind speed time-series forecasting for Chennai (NIWE Pallikaranai, 2015-2017 setup) with ARIMA(3,0,2) and SARIMA(0,1,2)(0,1,2,4), ADF stationarity test, ACF/PACF and AIC order selection, MSE/RMSE evaluation, plus a public NASA POWER data fetcher. Renewable energy / wind energy statistics, M.Tech thesis work, IIIT Bhagalpur.
+[![Live demo](https://img.shields.io/badge/Live%20demo-GitHub%20Pages-B3121B)](https://rishabh-bgp.github.io/arima-sarima-wind-speed-chennai/) [![CI](https://img.shields.io/badge/CI-GitHub%20Actions-B3121B)](https://github.com/Rishabh-bgp/arima-sarima-wind-speed-chennai/actions/workflows/ci.yml) [![Open in Colab](https://img.shields.io/badge/Open%20in-Colab-D4A64A)](https://colab.research.google.com/github/Rishabh-bgp/arima-sarima-wind-speed-chennai/blob/main/notebooks/walkthrough.ipynb) [![License: MIT](https://img.shields.io/badge/License-MIT-D4A64A.svg)](LICENSE) ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-111214) ![Data: synthetic](https://img.shields.io/badge/data-synthetic-111214)
 
-[![Screenshot of the Daoist-style live demo for arima-sarima-wind-speed-chennai: red and gold page with the 坎 (Kǎn, water) trigram, a forecast chart on synthetic data compared with persistence, and input sliders](docs/img/demo.png)](https://rishabh-bgp.github.io/arima-sarima-wind-speed-chennai/)
+Daily wind speed time-series forecasting for Chennai (NIWE Pallikaranai, 2015-2017 setup) with ARIMA(3,0,2) and SARIMA(0,1,2)(0,1,2,4), ADF stationarity test, ACF/PACF and AIC order selection, MSE/RMSE evaluation, plus a public NASA POWER data fetcher. Renewable energy / wind energy statistics, M.Tech thesis work, IIIT Bhagalpur. The paper proposes modeling **daily wind speed in Chennai** (NIWE met mast, Pallikaranai, 2015–2017) with classical time-series models. It checks stationarity with the ADF test, identifies orders from ACF/PACF and AIC, and compares **ARIMA(3,0,2)** with **SARIMA(0,1,2)(0,1,2,4)** using MSE and RMSE on two test sets. It concludes that ARIMA is more accurate.
+
+<a href="https://rishabh-bgp.github.io/arima-sarima-wind-speed-chennai/"><img src="docs/img/demo.png" width="100%" alt="Screenshot of the Daoist-style live demo for arima-sarima-wind-speed-chennai: red and gold page with the 坎 (Kǎn, water) trigram, a forecast chart on synthetic data compared with persistence, and input sliders"></a>
 
 **Live demo:** https://rishabh-bgp.github.io/arima-sarima-wind-speed-chennai/ (runs entirely in your browser on synthetic data)
 
 **About the demo design.** The page uses a Daoist, Chinese-ink style: crimson, charcoal and navy with gold accents, brush-style headings in the Ma Shan Zheng font, and charts drawn in gold, red and ink. Each repository has its own trigram. This one is **坎 ☵ (Kǎn, Water)**. 坎 (Kǎn) is water: flowing and returning to its level. It fits coastal Chennai and ARIMA's mean-reverting forecasts. The red seal stamp (印) carries the initials RA, the faint taiji and the row of eight Bagua trigrams stand for balance and change, the cloud scrolls stand for moving air, and the vertical motto 上善若水 means "The highest good is like water". The design is purely decorative. Everything is computed by the model shown, on synthetic data.
-
-## 論文 · What the paper proposes
-
-The paper models **daily wind speed in Chennai** (NIWE met mast, Pallikaranai, 2015–2017) with classical time-series models. It checks stationarity with the ADF test, identifies orders from ACF/PACF and AIC, and compares **ARIMA(3,0,2)** with **SARIMA(0,1,2)(0,1,2,4)** using MSE and RMSE on two test sets, concluding that ARIMA is more accurate.
 
 ## What this repository implements
 
@@ -85,6 +83,7 @@ On this synthetic series ARIMA(3,0,2) beats SARIMA in both tests, as in the pape
 - The paper's listing uses the last 30 days as the test set; it is not stated which of "Test 1 / Test 2" this was, so both splits are provided.
 - The paper does not state the two test datasets precisely, nor the 45 m vs 10 m height; NASA POWER is only a stand-in.
 - Synthetic generator constants (monsoon peaks, noise) are assumptions.
+- Unlike the deep-learning repositories, the models here are not switched to predicting the change from the last reading, because the paper specifies the exact orders. SARIMA(0,1,2)(0,1,2,4) already works on differenced data (d = 1), while ARIMA(3,0,2) models the level.
 
 ## Citation
 
@@ -98,7 +97,34 @@ MIT License, © 2026 Rishabh Aryan. See [`LICENSE`](LICENSE).
 
 This repository is part of my M.Tech thesis work, *An Investigation into Advanced Techniques for Wind Speed Forecasting with Applications to Renewable Energy Grid Integration*.
 
-<!--THESIS_REPO_LIST-->
+**1. Quantum and hybrid quantum ML**
+
+<!-- paper 08: add link -->
+<!-- paper 10: add link -->
+<!-- paper 12: add link -->
+
+**2. Metaheuristic-optimized hybrids**
+
+<!-- paper 04: add link -->
+
+**3. Deep learning with attention and gating**
+
+- **01** [CNN–BiLSTM–Attention on synthetic SCADA-style data](https://github.com/Rishabh-bgp/cnn-bilstm-attention-synthetic-scada)
+- **02** [CNN–BiLSTM–Attention on real SCADA data](https://github.com/Rishabh-bgp/cnn-bilstm-attention-real-scada)
+- **03** [Benchmarking CNN–BiLSTM–Attention on Indian SCADA data](https://github.com/Rishabh-bgp/cnn-bilstm-attention-benchmarking-indian-scada)
+<!-- paper 05: add link -->
+- **06** [Mathematical formulations and statistical validation](https://github.com/Rishabh-bgp/wind-forecasting-mathematical-formulations-validation)
+<!-- paper 09+13: add link -->
+<!-- paper 16: add link -->
+
+**4. IoT, automation and multi-agent systems**
+
+<!-- paper 14: add link -->
+<!-- paper 15: add link -->
+
+**5. Statistical time-series models**
+
+- **07** [ARIMA and SARIMA wind speed forecasting for Chennai](https://github.com/Rishabh-bgp/arima-sarima-wind-speed-chennai)
 
 ## Other repositories by Rishabh Aryan
 
