@@ -1,10 +1,10 @@
-# ARIMA and SARIMA Wind Speed Forecasting for Chennai, India (Python, statsmodels)
-
 <a href="https://rishabh-bgp.github.io/arima-sarima-wind-speed-chennai/"><img src="docs/img/banner.png" width="100%" alt="Banner: ARIMA and SARIMA Wind Speed Forecasting for Chennai, India, with a red seal stamp and a Bagua trigram"></a>
+
+# ARIMA and SARIMA Wind Speed Forecasting for Chennai, India (Python, statsmodels)
 
 [![Live demo](https://img.shields.io/badge/Live%20demo-GitHub%20Pages-B3121B)](https://rishabh-bgp.github.io/arima-sarima-wind-speed-chennai/) [![CI](https://img.shields.io/badge/CI-GitHub%20Actions-B3121B)](https://github.com/Rishabh-bgp/arima-sarima-wind-speed-chennai/actions/workflows/ci.yml) [![Open in Colab](https://img.shields.io/badge/Open%20in-Colab-D4A64A)](https://colab.research.google.com/github/Rishabh-bgp/arima-sarima-wind-speed-chennai/blob/main/notebooks/walkthrough.ipynb) [![License: MIT](https://img.shields.io/badge/License-MIT-D4A64A.svg)](LICENSE) ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-111214) ![Data: synthetic](https://img.shields.io/badge/data-synthetic-111214)
 
-Daily wind speed time-series forecasting for Chennai (NIWE Pallikaranai, 2015-2017 setup) with ARIMA(3,0,2) and SARIMA(0,1,2)(0,1,2,4), ADF stationarity test, ACF/PACF and AIC order selection, MSE/RMSE evaluation, plus a public NASA POWER data fetcher. Renewable energy / wind energy statistics, M.Tech thesis work, IIIT Bhagalpur. The paper proposes modeling **daily wind speed in Chennai** (NIWE met mast, Pallikaranai, 2015–2017) with classical time-series models. It checks stationarity with the ADF test, identifies orders from ACF/PACF and AIC, and compares **ARIMA(3,0,2)** with **SARIMA(0,1,2)(0,1,2,4)** using MSE and RMSE on two test sets. It concludes that ARIMA is more accurate.
+**arima-sarima-wind-speed-chennai** is the reference implementation of my paper on ARIMA and SARIMA forecasting of daily wind speed in Chennai, India. The paper proposes modeling **daily wind speed in Chennai** (NIWE met mast, Pallikaranai, 2015–2017) with classical time-series models. It checks stationarity with the ADF test, identifies orders from ACF/PACF and AIC, and compares **ARIMA(3,0,2)** with **SARIMA(0,1,2)(0,1,2,4)** using MSE and RMSE on two test sets. It concludes that ARIMA is more accurate.
 
 <a href="https://rishabh-bgp.github.io/arima-sarima-wind-speed-chennai/"><img src="docs/img/demo.png" width="100%" alt="Screenshot of the Daoist-style live demo for arima-sarima-wind-speed-chennai: red and gold page with the 坎 (Kǎn, water) trigram, a forecast chart on synthetic data compared with persistence, and input sliders"></a>
 
