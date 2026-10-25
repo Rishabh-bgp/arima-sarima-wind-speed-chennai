@@ -1,0 +1,14 @@
+seed: 42
+data:
+  csv: data/synthetic/synthetic_chennai_daily.csv   # SYNTHETIC; replace with your NIWE / NASA POWER CSV
+  date_col: date
+  wind_col: wind_speed
+arima_order: [3, 0, 2]               # as reported in the paper
+sarima_order: [0, 1, 2]
+sarima_seasonal_order: [0, 1, 2, 4]  # as reported in the paper (s = 4)
+aic_search: true                     # also report the AIC-best ARIMA order for comparison
+tests:
+  - name: test1_last30days           # split used in the paper's code listing
+    last_n_days: 30
+  - name: test2_80_20                # 80:20 split described in the paper text (chronological here)
+    train_frac: 0.8
