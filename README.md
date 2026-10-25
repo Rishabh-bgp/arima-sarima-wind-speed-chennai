@@ -10,7 +10,7 @@ Daily wind speed time-series forecasting for Chennai (NIWE Pallikaranai, 2015-20
 
 **Live demo:** https://rishabh-bgp.github.io/arima-sarima-wind-speed-chennai/ (runs entirely in your browser on synthetic data)
 
-**About the demo design.** The page uses a Daoist, Chinese-ink style: crimson, charcoal and navy with gold accents, brush-style headings in the Ma Shan Zheng font, and charts drawn in gold, red and ink. Each repository has its own trigram. This one is **坎 ☵ (Kǎn, Water)**. 坎 (Kǎn) is water: flowing and returning to its level. It fits coastal Chennai and ARIMA's mean-reverting forecasts. The red seal stamp (印) carries the initials RA, the faint taiji and the row of eight Bagua trigrams stand for balance and change, the cloud scrolls stand for moving air, and the vertical motto 上善若水 means "The highest good is like water". The design is purely decorative. Everything is computed by the model shown, on synthetic data.
+**About the demo design.** The page uses a Daoist, Chinese-ink style: crimson, charcoal and navy with gold accents, brush-style headings in the Ma Shan Zheng font, and charts drawn in gold, red and ink. Each repository has its own trigram. This one is **坎 ☵ (Kǎn, Water)**. 坎 (Kǎn) is water: flowing and returning to its level. It fits coastal Chennai and ARIMA's mean-reverting forecasts. The red seal stamp (印) carries the initials RA, the faint taiji and the row of eight Bagua trigrams stand for balance and change, and the vertical motto 上善若水 means "The highest good is like water". The design is purely decorative. Everything is computed by the model shown, on synthetic data.
 
 ## What this repository implements
 
