@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ARIMA daily wind speed forecaster · live demo · 坎 Water</title>
+<meta name="description" content="Live in-browser wind speed forecasting demo on synthetic data, compared with a persistence baseline. Part of Rishabh Aryan's M.Tech thesis work.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#650f19;--ink:#111214;--navy:#14213d;--gold:#d4a64a;--gold2:#f1d38a;--paper:#f6ecd9;--red:#e04a3a;
+ --fg:var(--paper);--acc:var(--gold);--acc2:var(--red);--card:rgba(17,18,20,.86)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--paper);font-family:'Noto Serif',Georgia,serif;line-height:1.5;
+ background:radial-gradient(ellipse at 15% 10%,rgba(0,0,0,.35),transparent 55%),radial-gradient(ellipse at 85% 90%,rgba(20,33,61,.55),transparent 60%),
+ radial-gradient(ellipse at 60% 30%,rgba(255,255,255,.05),transparent 40%),var(--bg);min-height:100vh;position:relative;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.10;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80' viewBox='0 0 160 80'%3E%3Cpath d='M10 60c10-18 30-18 40 0c6-10 18-10 24 0M90 30c10-18 30-18 40 0c6-10 18-10 24 0' fill='none' stroke='%23d4a64a' stroke-width='2'/%3E%3C/svg%3E")}
+.taiji{position:fixed;right:-140px;top:-140px;width:420px;height:420px;opacity:.07;pointer-events:none}
+header{max-width:1120px;margin:auto;padding:28px 24px 6px;display:flex;align-items:center;gap:18px}
+.seal{flex:none;width:64px;height:64px;background:var(--red);color:#fff6e6;border-radius:8px;display:grid;place-items:center;
+ font-family:'Ma Shan Zheng',serif;font-size:30px;box-shadow:inset 0 0 0 3px #fff6e6,inset 0 0 0 5px var(--red),0 3px 10px rgba(0,0,0,.4);transform:rotate(-4deg)}
+.seal small{font-family:'Noto Serif',serif;font-size:11px;letter-spacing:2px;margin-top:-8px}
+h1{margin:0;font-size:1.65rem;color:var(--gold2)} .brush{font-family:'Ma Shan Zheng',cursive;color:var(--gold);font-size:1.5rem;margin-right:8px}
+.sub{margin:2px 0 0;color:#f3dcc0;font-size:.95rem}
+.trigram{margin-left:auto;text-align:center;color:var(--gold)} .trigram .g{font-size:3.2rem;line-height:1} .trigram .n{font-family:'Ma Shan Zheng';font-size:1.3rem}
+.bagua{max-width:1120px;margin:6px auto;padding:0 24px;color:var(--gold);letter-spacing:.9em;text-align:center;opacity:.85;font-size:1.1rem;
+ display:flex;align-items:center;gap:12px} .bagua:before,.bagua:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+main{max-width:1120px;margin:auto;padding:10px 24px 30px;display:grid;grid-template-columns:2fr 1fr;gap:18px}
+@media(max-width:860px){main{grid-template-columns:1fr} .trigram{display:none}}
+.card{background:var(--card);border:1px solid rgba(212,166,74,.45);border-radius:6px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.35);position:relative}
+.card:before{content:"";position:absolute;inset:6px;border:1px solid rgba(212,166,74,.18);border-radius:4px;pointer-events:none}
+h2{font-family:'Ma Shan Zheng','Noto Serif',serif;font-weight:400;color:var(--gold2);font-size:1.45rem;margin:0 0 10px}
+h3{color:var(--gold);font-size:1rem}
+canvas{width:100%;height:auto;display:block;background:linear-gradient(180deg,rgba(20,33,61,.35),rgba(0,0,0,.15));border-radius:4px}
+label{display:block;margin:12px 0 4px;font-size:.9rem;color:#f3dcc0} input[type=range]{width:100%;accent-color:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:.9rem} td,th{padding:6px;border-bottom:1px solid rgba(212,166,74,.25);text-align:right} td:first-child,th:first-child{text-align:left} th{color:var(--gold)}
+.big{font-size:2.1rem;font-weight:700;color:var(--gold2)}
+.legend span{display:inline-block;margin-right:14px;font-size:.85rem} .sw{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px}
+.warn{border-left:4px solid var(--red);padding:10px 12px;font-size:.9rem;background:rgba(224,74,58,.10)}
+.kpi{display:flex;gap:10px} .kpi div{flex:1;border:1px solid rgba(212,166,74,.35);padding:8px;text-align:center} .kpi b{display:block;font-size:1.35rem;color:var(--gold2)}
+.motto{font-family:'Ma Shan Zheng';font-size:1.6rem;color:var(--gold);writing-mode:vertical-rl;position:fixed;left:10px;top:120px;opacity:.35;pointer-events:none}
+@media(max-width:1250px){.motto{display:none}}
+footer{max-width:1120px;margin:auto;padding:0 24px 34px;font-size:.85rem;color:#f3dcc0} a{color:var(--gold2)}
+</style></head><body>
+<svg class="taiji" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#f6ecd9"/><path d="M50 2a48 48 0 0 1 0 96a24 24 0 0 1 0-48a24 24 0 0 0 0-48z" fill="#111214"/><circle cx="50" cy="26" r="7" fill="#111214"/><circle cx="50" cy="74" r="7" fill="#f6ecd9"/></svg>
+<div class="motto" aria-hidden="true">上善若水</div>
+<header><div class="seal" role="img" aria-label="Red seal stamp with the initials R A">印<small>RA</small></div>
+<div><h1><span class="brush">坎</span>ARIMA daily wind speed forecaster</h1><p class="sub">Chennai-style daily series · ARIMA(3,0,2) · runs in your browser</p></div>
+<div class="trigram" aria-label="Trigram Kǎn, Water"><div class="g">☵</div><div class="n">坎 · Water</div></div></header>
+<div class="bagua" aria-hidden="true">☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷</div>
+<main>
+
+<section class="card" style="grid-column:1/-1"><h2>Daily forecast from a chosen origin</h2><canvas id="c" width="940" height="340" role="img" aria-label="Line chart of daily wind speed history, ARIMA forecast, persistence forecast and actual values"></canvas>
+<p class="legend"><span style="color:#f6ecd9">■</span> history / actual &nbsp; <span style="color:#d4a64a">■</span> ARIMA(3,0,2) forecast &nbsp; <span style="color:#e04a3a">■</span> persistence (last observed day)</p></section>
+<section class="card"><h2>Controls</h2>
+<label for="o">Forecast origin date: <b id="ov"></b></label><input id="o" type="range">
+<label for="h">Horizon: <b id="hv"></b> days</label><input id="h" type="range" min="1" max="60" value="30">
+<label for="s">Shock to the last observed day: <b id="sv"></b> m/s</label><input id="s" type="range" min="-3" max="3" step="0.1" value="0">
+</section><section class="card"><h2>Errors over the horizon</h2>
+<div class="kpi"><div>ARIMA RMSE<b id="ra">–</b></div><div>Persistence RMSE<b id="rp">–</b></div></div>
+<div class="kpi" style="margin-top:8px"><div>ARIMA MAE<b id="ma">–</b></div><div>Persistence MAE<b id="mp">–</b></div></div></section>
+<section class="card" style="grid-column:1/-1"><div class="warn"><b>Synthetic data disclaimer.</b> The series here is <b>synthetic</b> (generated to look like Chennai daily wind, 2015–2017). It is <b>not</b> NIWE data and these numbers say nothing about the paper's published results. <span id="n"></span></div></section>
+
+</main>
+<div class="bagua" aria-hidden="true">☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷</div>
+<footer><p><b>About the design.</b> 坎 (Kǎn) is water: flowing and returning to its level. It fits coastal Chennai and ARIMA's mean-reverting forecasts. The red seal (印) carries the initials RA. The taiji and the eight Bagua trigrams stand for balance and change, and the cloud scrolls stand for moving air. The vertical motto 上善若水 means "The highest good is like water".</p>
+<p>Reimplementation by Rishabh Aryan · M.Tech Thesis Work in AI and Data Science, IIIT Bhagalpur · MIT licence · <a href="https://github.com/Rishabh-bgp/arima-sarima-wind-speed-chennai">source code on GitHub</a></p></footer>
+<script src="arma.js"></script>
+<script>
+fetch("model.json").then(r=>r.json()).then(m=>{
+ const V=m.values,Dt=m.dates,c=document.getElementById("c"),g=c.getContext("2d");
+ o.min=200;o.max=V.length-2;o.value=m.fit_until;n.textContent=m.note;
+ function up(){const O=+o.value,H=Math.min(+h.value,V.length-O),S=+s.value;ov.textContent=Dt[O-1];hv.textContent=H;sv.textContent=S.toFixed(1);
+  const hist=V.slice(0,O);hist[O-1]=Math.max(0,hist[O-1]+S);const f=ARMA.forecast(m,hist,H),act=V.slice(O,O+H),per=act.map(()=>hist[O-1]);
+  const err=(p)=>{let a=0,q=0;act.forEach((v,i)=>{a+=Math.abs(v-p[i]);q+=(v-p[i])**2});return[a/act.length,Math.sqrt(q/act.length)]};
+  const ea=err(f),ep=err(per);ra.textContent=ea[1].toFixed(3);rp.textContent=ep[1].toFixed(3);ma.textContent=ea[0].toFixed(3);mp.textContent=ep[0].toFixed(3);
+  const start=Math.max(0,O-90),xs=V.slice(start,O+H),lo=0,hi=Math.ceil(Math.max(...xs,...f)+.5),N=O+H-start;
+  const X=i=>40+(i-start)*(c.width-50)/(N-1),Y=v=>c.height-25-(v-lo)/(hi-lo)*(c.height-45);
+  g.clearRect(0,0,c.width,c.height);g.font="12px serif";g.fillStyle="#f6ecd9";
+  for(let v=0;v<=hi;v+=2){g.globalAlpha=.15;g.fillRect(40,Y(v),c.width-50,1);g.globalAlpha=1;g.fillText(v,10,Y(v)+4)}
+  g.fillText(Dt[start],40,c.height-6);g.fillText(Dt[O+H-1],c.width-90,c.height-6);
+  const L=(arr,i0,col,w)=>{g.strokeStyle=col;g.lineWidth=w;g.beginPath();arr.forEach((v,k)=>{k?g.lineTo(X(i0+k),Y(v)):g.moveTo(X(i0+k),Y(v))});g.stroke()};
+  L(V.slice(start,O+H),start,"#f6ecd9",1.2);L([hist[O-1]].concat(per),O-1,"#e04a3a",2);L([hist[O-1]].concat(f),O-1,"#d4a64a",2.4);
+  g.globalAlpha=.2;g.fillStyle="#d4a64a";g.fillRect(X(O-1),15,X(O+H-1)-X(O-1),c.height-40);g.globalAlpha=1}
+ [o,h,s].forEach(e=>e.addEventListener("input",up));up()});
+</script>
+</body></html>
